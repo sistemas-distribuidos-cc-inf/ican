@@ -12,20 +12,19 @@ import {
   View
 } from 'react-native';
 
+import { Button } from 'react-native-elements';
+
 export default class App extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Welcome to React Native!
-        </Text>
-        <Text style={styles.instructions}>
-          To get started, edit index.android.js
-        </Text>
-        <Text style={styles.instructions}>
-          Double tap R on your keyboard to reload,{'\n'}
-          Shake or press menu button for dev menu
-        </Text>
+       <Button
+       raised
+       icon={{name: 'home', size: 32}}
+       buttonStyle={{backgroundColor: 'red', borderRadius: 10}}
+       textStyle={{textAlign: 'center'}}
+       title={`Welcome to\nReact Native Elements`}
+     />
       </View>
     );
   }
