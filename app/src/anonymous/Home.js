@@ -44,6 +44,7 @@ export default class Home extends Component {
             </View>
             <View style={styles.viewHelp}> 
                 <Button
+                    onPress={() => self.props.navigation.navigate('Help')}
                     raised
                     borderRadius={20}
                     backgroundColor = {'#393e46'}

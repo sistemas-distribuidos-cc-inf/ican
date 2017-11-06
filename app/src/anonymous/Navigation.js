@@ -9,6 +9,7 @@ import Home from './Home';
 import Chat from './Chat';
 import Voice from './Voice';
 import Video from './Video';
+import Help from './Help';
 
 const DetailsScreen = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -39,6 +40,12 @@ const SignedIn = StackNavigator({
         screen: Voice,
         navigationOptions: {
             headerTitle: 'Voice',
+        },
+    },
+    Help: {
+        screen: Help,
+        navigationOptions: {
+            headerTitle: 'Help',
         },
     },
     },  {
