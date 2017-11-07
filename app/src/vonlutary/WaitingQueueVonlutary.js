@@ -14,7 +14,7 @@ import {
 
 import { Button } from 'react-native-elements';
 
-export default class Help extends Component {
+export default class WaitingQueueVonlutary extends Component {
   render() {
     return (
         <View style={styles.container}> 

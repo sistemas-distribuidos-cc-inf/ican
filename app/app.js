@@ -6,7 +6,7 @@
 
 import React, { Component } from 'react';
 
-import createRootNavigator from './src/anonymous/Navigation';
+import createRootNavigator from './src/shared/Navigation';
 
 
 export default class App extends Component {

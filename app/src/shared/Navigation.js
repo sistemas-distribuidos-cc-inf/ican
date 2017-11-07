@@ -4,12 +4,18 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import firebase from 'firebase';
 
-import Login from './Login';
-import Home from './Home';
-import Chat from './Chat';
-import Voice from './Voice';
-import Video from './Video';
-import Help from './Help';
+import Login from '../anonymous/Login';
+import Home from '../anonymous/Home';
+import Chat from '../anonymous/Chat';
+import Voice from '../anonymous/Voice';
+import Video from '../anonymous/Video';
+import Help from '../anonymous/Help';
+
+import LoginVonlutary from '../vonlutary/LoginVonlutary';
+import HomeVonlutary from '../vonlutary/HomeVonlutary';
+import WaitingQueueVonlutary from '../vonlutary/WaitingQueueVonlutary';
+
+
 
 const DetailsScreen = () => (
   <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
@@ -48,6 +54,18 @@ const SignedIn = StackNavigator({
             headerTitle: 'Help',
         },
     },
+    HomeVonlutary: {
+        screen: HomeVonlutary,
+        navigationOptions: {
+            headerTitle: 'Home Vonlutary',
+        },
+    },
+    WaitingQueueVonlutary: {
+        screen: WaitingQueueVonlutary,
+        navigationOptions: {
+            headerTitle: 'Waiting',
+        },
+    },
     },  {
         initialRouteName: 'Home'
     });
@@ -57,10 +75,14 @@ const SignedOut = StackNavigator({
         screen: Login,
         headerMode: "none",
     },  
+    LoginVonlutary: {
+        screen: LoginVonlutary,
+        headerMode: "none",
+    },  
 },
     {
         headerMode: "none",
-        initialRouteName: 'Login'
+        initialRouteName: 'LoginVonlutary'
     });
 const createRootNavigator = () => {
     const isloggedIn = false;

@@ -45,6 +45,7 @@ export default class Login extends Component {
             <View style={styles.viewVoluntary}>
                 <Button
                     raised
+                    onPress={() => self.props.navigation.navigate('LoginVonlutary')}
                     backgroundColor = {'#393e46'}
                     borderRadius={20}
                     icon={{name: 'user', type: 'font-awesome'}}
