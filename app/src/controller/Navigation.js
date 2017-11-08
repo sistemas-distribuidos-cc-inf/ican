@@ -4,16 +4,16 @@ import { StackNavigator, TabNavigator } from 'react-navigation';
 
 // import firebase from 'firebase';
 
-import Login from '../anonymous/Login';
-import Home from '../anonymous/Home';
-import Chat from '../anonymous/Chat';
-import Voice from '../anonymous/Voice';
-import Video from '../anonymous/Video';
-import Help from '../anonymous/Help';
+import Login from '../view/anonymous/Login';
+import Home from '../view/anonymous/Home';
+import Chat from '../view/anonymous/Chat';
+import Voice from '../view/anonymous/Voice';
+import Video from '../view/anonymous/Video';
+import Help from '../view/anonymous/Help';
 
-import LoginVonlutary from '../vonlutary/LoginVonlutary';
-import HomeVonlutary from '../vonlutary/HomeVonlutary';
-import WaitingQueueVonlutary from '../vonlutary/WaitingQueueVonlutary';
+import LoginVonlutary from '../view/vonlutary/LoginVonlutary';
+import HomeVonlutary from '../view/vonlutary/HomeVonlutary';
+import WaitingQueueVonlutary from '../view/vonlutary/WaitingQueueVonlutary';
 
 
 

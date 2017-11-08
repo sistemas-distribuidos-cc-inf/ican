@@ -6,7 +6,8 @@
 
 import React, { Component } from 'react';
 
-import createRootNavigator from './src/shared/Navigation';
+import createRootNavigator from './src/controller/Navigation';
+import firebase  from './src/controller/Firebase';
 
 
 export default class App extends Component {

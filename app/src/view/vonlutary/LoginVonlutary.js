@@ -8,10 +8,13 @@ import React, { Component } from 'react';
 import {
   AppRegistry,
   StyleSheet,
-  View
+  View,
+  Alert
 } from 'react-native';
 
 import { Button, FormLabel, FormInput, Text  } from 'react-native-elements';
+
+import { loginVonlutary }  from '../../controller/Volutary'
 
 export default class LoginVonlutary extends Component {
     constructor(props) {
@@ -19,7 +22,12 @@ export default class LoginVonlutary extends Component {
         this.state = { email: '', password: '' };
     }
     signIn() {
-        this.props.navigation.navigate('HomeVonlutary')
+        loginVonlutary(this.props.email, this.props.password, (err) => {
+            if(err) {
+                Alert.alert(err.message);
+            }
+            else this.props.navigation.navigate('HomeVonlutary')
+        })
     }
     render() {
         const self = this;
