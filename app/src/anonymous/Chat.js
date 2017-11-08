@@ -27,12 +27,12 @@ export default class Chat extends Component {
         messages: [
         {
             _id: 1,
-            text: 'Hello developer',
+            text: 'The secrecy is very important for iCan! \n No information or excerpt from this conversation will be recorded by us.',
             createdAt: new Date(),
             user: {
             _id: 2,
-            name: 'React Native',
-            avatar: 'https://facebook.github.io/react/img/logo_og.png',
+            name: 'iCan',
+            avatar: 'http://s3.amazonaws.com/37assets/svn/765-default-avatar.png',
             },
         },
         ],
