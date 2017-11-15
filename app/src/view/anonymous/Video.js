@@ -14,7 +14,7 @@ import {
 
 import io from 'socket.io-client';
 
-const socket = io.connect('https://react-native-webrtc.herokuapp.com', {transports: ['websocket']});
+const socket = io.connect('https://icanapp.herokuapp.com/', {transports: ['websocket']});
 
 import {
   RTCPeerConnection,
@@ -25,7 +25,6 @@ import {
   MediaStreamTrack,
   getUserMedia,
 } from 'react-native-webrtc';
-
 const configuration = {"iceServers": [{"url": "stun:stun.l.google.com:19302"}]};
 
 const pcPeers = {};

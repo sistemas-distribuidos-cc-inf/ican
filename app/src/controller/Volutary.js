@@ -5,7 +5,7 @@ export function loginVonlutary(email, password, callback) {
     password = '123456';
     firebase.auth().signInWithEmailAndPassword(email, password)
     .then(() => {
-        console.log(firebase.auth().currentUser)
+        console.log(firebase.auth().currentUser.uid)
         callback()
     })    
     .catch(error => {
