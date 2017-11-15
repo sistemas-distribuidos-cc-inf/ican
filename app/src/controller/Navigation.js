@@ -67,7 +67,8 @@ const SignedIn = StackNavigator({
         },
     },
     },  {
-        initialRouteName: 'Video'
+        // headerMode: "none",        
+        initialRouteName: 'Home'
     });
 
 const SignedOut = StackNavigator({
@@ -82,10 +83,10 @@ const SignedOut = StackNavigator({
 },
     {
         headerMode: "none",
-        initialRouteName: 'LoginVonlutary'
+        initialRouteName: 'Login'
     });
 const createRootNavigator = () => {
-    const isloggedIn = true;
+    const isloggedIn = false;
     return StackNavigator(
     {
         SignedIn: {

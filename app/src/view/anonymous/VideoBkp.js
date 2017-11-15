@@ -11,7 +11,6 @@ import {
   ListView,
   Platform,
 } from 'react-native';
-import { Button, Icon } from 'react-native-elements';
 
 import io from 'socket.io-client';
 
@@ -251,7 +250,6 @@ const Video = React.createClass({
       status: 'init',
       roomID: '',
       isFront: true,
-      isShowCamera: 'true',
       selfViewSrc: null,
       remoteList: {},
       textRoomConnected: false,
@@ -286,10 +284,6 @@ const Video = React.createClass({
         pc && pc.addStream(localStream);
       }
     });
-  },
-  _viewMyCamera() {
-    const isShowCamera = !this.state.isShowCamera;
-    this.setState({isShowCamera});
   },
   receiveTextData(data) {
     const textRoomData = this.state.textRoomData.slice();
@@ -330,47 +324,21 @@ const Video = React.createClass({
   render() {
     return (
       <View style={styles.container}>
-        {/* <Text style={styles.welcome}>
+        <Text style={styles.welcome}>
           {this.state.info}
-        </Text> */}
-        <View style={styles.viewButtonTop}>
-          {/* <Button
-              onPress={this._viewMyCamera}
-              raised
-              icon={{name: 'camera', type: 'font-awesome'}}
-              title={this.state.isShowCamera ? "Close my preview" : "Show my preview"}
-          /> */}
-          <Icon
-            raised
-            name={this.state.isShowCamera ? "camera" : "camera-off"}
-            type='feather'
-            onPress={this._viewMyCamera}
-          />
-          <Icon
-            raised
-            name='cached'
-            onPress={this._switchVideoType}
-          />
-          <Icon
-            raised
-            name='sign-out'
-            type= 'font-awesome'
-            onPress={() => this.props.navigation.navigate('Home')}
-            />
-          {/* <Button
-              onPress={this._switchVideoType}
-              raised
-              icon={{name: 'cached'}}
-              title={this.state.isFront ? "Front" : "Back"}
-          />
-          <Button
-              onPress={this._switchVideoType}
-              raised
-              icon={{name: 'sign-out', type: 'font-awesome'}}
-              title=""
-          /> */}
+        </Text>
+        {this.state.textRoomConnected && this._renderTextRoom()}
+        <View style={{flexDirection: 'row'}}>
+          <Text>
+            {this.state.isFront ? "Use front camera" : "Use back camera"}
+          </Text>
+          <TouchableHighlight
+            style={{borderWidth: 1, borderColor: 'black'}}
+            onPress={this._switchVideoType}>
+            <Text>Switch camera</Text>
+          </TouchableHighlight>
         </View>
-        {/* { this.state.status == 'ready' ?
+        { this.state.status == 'ready' ?
           (<View>
             <TextInput
               ref='roomID'
@@ -384,41 +352,13 @@ const Video = React.createClass({
               <Text>Enter room</Text>
             </TouchableHighlight>
           </View>) : null
-        } */}
-        {/* { this.state.status == 'ready' ?
-          (<View>
-            <TextInput
-              ref='roomID'
-              autoCorrect={false}
-              style={{width: 200, height: 40, borderColor: 'gray', borderWidth: 1}}
-              onChangeText={(text) => this.setState({roomID: text})}
-              value={this.state.roomID}
-            />
-            <TouchableHighlight
-              onPress={this._press}>
-              <Text>Enter room</Text>
-            </TouchableHighlight>
-          </View>) : null
-        } */}
-        <View style={styles.viewVideo}> 
-          { this.state.status == 'ready' ?
-            (<View>
-              <Button
-                  loading
-                  title='Waiting for connection establishment' />
-            </View>) : null
-          }
-          {
-            mapHash(this.state.remoteList, function(remote, index) {
-                return <RTCView key={index} streamURL={remote} style={styles.remoteView}/>
-            })
-          }
-          {/* <RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/> */}
-          {this.state.isShowCamera ? 
-            (<RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>) :
-            null 
-          }
-        </View>
+        }
+        <RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>
+        {
+          mapHash(this.state.remoteList, function(remote, index) {
+            return <RTCView key={index} streamURL={remote} style={styles.remoteView}/>
+          })
+        }
       </View>
     );
   }
@@ -426,24 +366,25 @@ const Video = React.createClass({
 
 const styles = StyleSheet.create({
   selfView: {
-    flex: 1,
+    width: 200,
+    height: 150,
   },
   remoteView: {
-    flex: 4,
+    width: 200,
+    height: 150,
   },
   container: {
     flex: 1,
-    // justifyContent: 'center',
+    justifyContent: 'center',
     backgroundColor: '#F5FCFF',
   },
-  viewButtonTop: {
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center'
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
   },
-  viewVideo: {
-    flex: 4,
+  listViewContainer: {
+    height: 150,
   },
 });
 

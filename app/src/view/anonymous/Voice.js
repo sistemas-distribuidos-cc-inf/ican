@@ -21,7 +21,7 @@ export default class Voice extends Component {
             <Button
                 loading
                 title='Loading' />
-      </View>
+        </View>
     );
   }
 }

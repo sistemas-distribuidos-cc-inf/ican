@@ -9,7 +9,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Alert
 } from 'react-native';
 
 import { Button, SocialIcon } from 'react-native-elements';
