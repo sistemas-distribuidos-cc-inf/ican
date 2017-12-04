@@ -12,6 +12,7 @@ import {
   Platform,
 } from 'react-native';
 import { Button, Icon } from 'react-native-elements';
+// import firebase  from '../../controller/Firebase';
 
 import io from 'socket.io-client';
 
@@ -66,13 +67,31 @@ function getLocalStream(isFront, callback) {
   }, logError);
 }
 
-function join(roomID) {
-  socket.emit('join', roomID, function(socketIds){
-    console.log('join', socketIds);
-    for (const i in socketIds) {
-      const socketId = socketIds[i];
-      createPC(socketId, true);
+function join(type) {
+  // const obj = type == 'anonymous' ? {
+  //   connection: 'video'
+  // } :  {
+  //   video: true,
+  //   voice: true,
+  //   chat: true
+  // };
+  // socket.emit('join', firebase.auth().currentUser.uid, type, obj, function(obj){
+  //   console.log('join', obj);
+  //   if(obj.vonlutary && obj.vonlutary.socketId) {
+  //     alert(obj.vonlutary.socketId)
+  //     createPC(obj.vonlutary.socketId, true);
+  //   }
+  // });
+  socket.emit('join', type, function(socketId){
+    alert( 'type' + type + 'socketId' + socketId);
+    if(type === 'anonymous' && socketId) {
+        createPC(socketId, true);
     }
+    console.log('join', socketId);
+    // for (const i in socketIds) {
+    //   const socketId = socketIds[i];
+    //   createPC(socketId, true);
+    // }
   });
 }
 
@@ -121,6 +140,7 @@ function createPC(socketId, isOffer) {
 
   pc.onaddstream = function (event) {
     console.log('onaddstream', event.stream);
+    alert('One peer join!')
     container.setState({info: 'One peer join!'});
 
     const remoteList = container.state.remoteList;
@@ -202,6 +222,7 @@ function leave(socketId) {
 }
 
 socket.on('exchange', function(data){
+  console.log('exchange');
   exchange(data);
 });
 socket.on('leave', function(socketId){
@@ -212,6 +233,7 @@ socket.on('connect', function(data) {
   console.log('connect');
   getLocalStream(true, function(stream) {
     localStream = stream;
+    // alert(stream.toURL());
     container.setState({selfViewSrc: stream.toURL()});
     container.setState({status: 'ready', info: 'Please enter or create room ID'});
   });
@@ -245,13 +267,21 @@ let container;
 
 const Video = React.createClass({
   getInitialState: function() {
+    // firebase.auth().signInAnonymously()
+    // .then(() => {
+    //     // alert(firebase.auth().currentUser.uid)
+    //     // callback()
+    // })    
+    // .catch(error => {
+    //     // callback(error);
+    // });
     this.ds = new ListView.DataSource({rowHasChanged: (r1, r2) => true});
     return {
       info: 'Initializing',
       status: 'init',
       roomID: '',
       isFront: true,
-      isShowCamera: 'true',
+      isShowCamera: true,
       selfViewSrc: null,
       remoteList: {},
       textRoomConnected: false,
@@ -261,11 +291,6 @@ const Video = React.createClass({
   },
   componentDidMount: function() {
     container = this;
-  },
-  _press(event) {
-    this.refs.roomID.blur();
-    this.setState({status: 'connect', info: 'Connecting'});
-    join(this.state.roomID);
   },
   _switchVideoType() {
     const isFront = !this.state.isFront;
@@ -353,9 +378,15 @@ const Video = React.createClass({
           />
           <Icon
             raised
-            name='sign-out'
+            name='user'
             type= 'font-awesome'
-            onPress={() => this.props.navigation.navigate('Home')}
+            onPress={() => join('anonymous')}
+            />
+          <Icon
+            raised
+            name='user-secret'
+            type= 'font-awesome'
+            onPress={() => join('vonlutary')}
             />
           {/* <Button
               onPress={this._switchVideoType}
@@ -400,7 +431,9 @@ const Video = React.createClass({
             </TouchableHighlight>
           </View>) : null
         } */}
+        
         <View style={styles.viewVideo}> 
+        <Text>{this.state.status} - {this.state.selfViewSrc}</Text>
           { this.state.status == 'ready' ?
             (<View>
               <Button
@@ -413,11 +446,15 @@ const Video = React.createClass({
                 return <RTCView key={index} streamURL={remote} style={styles.remoteView}/>
             })
           }
-          {/* <RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/> */}
-          {this.state.isShowCamera ? 
+          {
+            this.state.selfViewSrc ?
+            (<RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>)
+            : null
+          }
+          {/* {this.state.isShowCamera ? 
             (<RTCView streamURL={this.state.selfViewSrc} style={styles.selfView}/>) :
             null 
-          }
+           */}
         </View>
       </View>
     );
